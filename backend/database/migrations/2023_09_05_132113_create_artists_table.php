@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 255);
-            $table->string('last_name', 255);
-            $table->string('email', 255)->unique();
-            $table->string('password', 500);
-            $table->string('phone', 20);
+            $table->string('name', 255);
             $table->date('dob');
             $table->enum('gender', ['m', 'f', 'o']);
-            $table->enum('role', ['super_admin', 'artist_manager', 'artist']);
             $table->string('address', 255);
+            $table->year('first_release_year');
+            $table->integer('no_of_albums_released');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('artists');
     }
 };
