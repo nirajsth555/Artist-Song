@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
+use App\Exceptions\GeneralException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -31,8 +32,11 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ValidationException $e) {
             return $this->generalisedResponse("Validation failed", false, ['errors' => $e->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         });
+        $this->renderable(function (GeneralException $e) {
+            return $this->generalisedResponse($e->getMessage(), false, '', $e->getCode());
+        });
         $this->reportable(function (Throwable $e) {
-            dd("I am here");
+            return $this->generalisedResponse("Internal Server", false, '', Response::HTTP_INTERNAL_SERVER_ERROR);
         });
     }
 }

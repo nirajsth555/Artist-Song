@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get('artist', [ArtistController::class, 'index']);
 Route::post('artist', [ArtistController::class, 'store']);
