@@ -52,6 +52,7 @@ class ArtistRepository
     public function delete(Artist $artist)
     {
         try {
+            $artist->musics()->delete();
             $artist->delete();
             return true;
         } catch (\Exception $e) {
