@@ -58,7 +58,7 @@ class Handler extends ExceptionHandler
             return $this->generalisedResponse("Unauthenticated", false, '', Response::HTTP_UNAUTHORIZED);
         });
         $this->renderable(function (AuthorizationException $e) {
-            return $this->generalisedResponse($e->getMessage(), false, '', $e->getCode());
+            return $this->generalisedResponse("Unauthorized", false, '', Response::HTTP_FORBIDDEN);
         });
         $this->reportable(function (Throwable $e) {
             return $this->generalisedResponse("Internal Server", false, '', Response::HTTP_INTERNAL_SERVER_ERROR);

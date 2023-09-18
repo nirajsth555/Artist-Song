@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('artist', [ArtistController::class, 'index']);
-    Route::post('artist', [ArtistController::class, 'store']);
-    Route::put('artist/{artist}', [ArtistController::class, 'update']);
-    Route::delete('artist/{artist}', [ArtistController::class, 'delete']);
+    Route::get('artist', [ArtistController::class, 'index'])->middleware('checkRole:super_admin,artist_manager');
+    Route::post('artist', [ArtistController::class, 'store'])->middleware('checkRole:artist_manager');
+    Route::put('artist/{artist}', [ArtistController::class, 'update'])->middleware('checkRole:artist_manager');
+    Route::delete('artist/{artist}', [ArtistController::class, 'delete'])->middleware('checkRole:artist_manager');
 
-    Route::get('music', [MusicController::class, 'index']);
-    Route::post('music', [MusicController::class, 'store']);
-    Route::put('music/{music}', [MusicController::class, 'update']);
-    Route::delete('music/{music}', [MusicController::class, 'delete']);
+    Route::get('music', [MusicController::class, 'index'])->middleware('checkRole:super_admin,artist_manager,artist');
+    Route::post('music', [MusicController::class, 'store'])->middleware('checkRole:artist');
+    Route::put('music/{music}', [MusicController::class, 'update'])->middleware('checkRole:artist');
+    Route::delete('music/{music}', [MusicController::class, 'delete'])->middleware('checkRole:artist');
 });
 
 
