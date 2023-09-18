@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
 use App\Exceptions\GeneralException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -24,6 +26,23 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Determine if the exception handler response should be JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $e
+     * @return bool
+     */
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        return true;
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->generalisedResponse('Unauthorised', false, '', 400);
+    }
+
+    /**
      * Register the exception handling callbacks for the application.
      */
     public function register(): void
@@ -33,6 +52,12 @@ class Handler extends ExceptionHandler
             return $this->generalisedResponse("Validation failed", false, ['errors' => $e->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         });
         $this->renderable(function (GeneralException $e) {
+            return $this->generalisedResponse($e->getMessage(), false, '', $e->getCode());
+        });
+        $this->renderable(function (AuthenticationException $e) {
+            return $this->generalisedResponse("Unauthenticated", false, '', Response::HTTP_UNAUTHORIZED);
+        });
+        $this->renderable(function (AuthorizationException $e) {
             return $this->generalisedResponse($e->getMessage(), false, '', $e->getCode());
         });
         $this->reportable(function (Throwable $e) {
