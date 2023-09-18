@@ -16,7 +16,7 @@ class MusicRepository
     public function create($data)
     {
         try {
-            $artist = Music::create([
+            $artist = $this->music->create([
                 'artist_id' => $data['artist'],
                 'title' => $data['title'],
                 'album_name' => $data['albumName'],

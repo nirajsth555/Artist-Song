@@ -25,7 +25,8 @@ class MusicService
             return $music;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw $e;
+            // throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -38,7 +39,8 @@ class MusicService
             return $music;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw $e;
+            // throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -51,7 +53,8 @@ class MusicService
             return $music;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw $e;
+            // throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,7 +63,8 @@ class MusicService
         try {
             return $this->musicRepository->index($params);
         } catch (\Exception $e) {
-            throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw $e;
+            // throw new GeneralException("Internal Server Error.", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

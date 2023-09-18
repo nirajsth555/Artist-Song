@@ -22,12 +22,12 @@ class CreateArtistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'dob' => 'required',
-            'gender' => 'required',
-            'address' => 'required',
-            'first_release_year' => 'required',
-            'no_of_albums_released' => 'required',
+            'name' => 'required|max:255',
+            'dob' => 'required|date_format:Y/m/d',
+            'gender' => 'required|in:m,f,o',
+            'address' => 'required|max:255',
+            'first_release_year' => 'required|date_format:Y',
+            'no_of_albums_released' => 'required|integer',
         ];
     }
 }

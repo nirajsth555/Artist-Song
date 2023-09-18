@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\LoginRequest;
 use App\Models\User;
 use App\Services\UserService;
 use App\Traits\ApiResponser;
@@ -31,7 +32,7 @@ class UserController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         try {
             $user = $this->userService->loginUser($request->all());

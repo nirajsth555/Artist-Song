@@ -18,7 +18,7 @@ class ArtistRepository
     public function create($data)
     {
         try {
-            $artist = Artist::create([
+            $artist = $this->artist->create([
                 'name' => $data['name'],
                 'dob' => $data['dob'],
                 'gender' => $data['gender'],
