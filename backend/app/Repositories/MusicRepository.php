@@ -19,7 +19,7 @@ class MusicRepository
             $artist = $this->music->create([
                 'artist_id' => $data['artist'],
                 'title' => $data['title'],
-                'album_name' => $data['albumName'],
+                'album_ame' => $data['albumName'],
                 'genre' => $data['genre'],
             ]);
             return $artist;

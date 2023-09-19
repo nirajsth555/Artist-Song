@@ -6,6 +6,7 @@ use App\Traits\ApiResponser;
 use App\Exceptions\GeneralException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -53,6 +54,9 @@ class Handler extends ExceptionHandler
         });
         $this->renderable(function (GeneralException $e) {
             return $this->generalisedResponse($e->getMessage(), false, '', $e->getCode());
+        });
+        $this->renderable(function (ModelNotFoundException $e) {
+            return $this->generalisedResponse("Record not found", false, '', Response::HTTP_NOT_FOUND);
         });
         $this->renderable(function (AuthenticationException $e) {
             return $this->generalisedResponse("Unauthenticated", false, '', Response::HTTP_UNAUTHORIZED);

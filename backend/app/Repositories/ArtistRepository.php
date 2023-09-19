@@ -36,12 +36,12 @@ class ArtistRepository
     {
         try {
             $artist->update([
-                'name' => $data['name'],
-                'dob' => $data['dob'],
-                'gender' => $data['gender'],
-                'address' => $data['address'],
-                'first_release_year' => $data['first_release_year'],
-                'no_of_albums_released' => $data['no_of_albums_released'],
+                'name' => $data['name'] ?? $artist->name,
+                'dob' => $data['dob'] ?? $artist->dob,
+                'gender' => $data['gender'] ?? $artist->gender,
+                'address' => $data['address'] ?? $artist->address,
+                'first_release_year' => $data['first_release_year'] ??  $artist->first_release_year,
+                'no_of_albums_released' => $data['no_of_albums_released'] ??  $artist->no_of_albums_released,
             ]);
             return $artist;
         } catch (\Exception $e) {
@@ -75,6 +75,15 @@ class ArtistRepository
                 'records' => $artists->items()
             ];
             return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function show($artistId)
+    {
+        try {
+            return $this->artist->findOrFail($artistId);
         } catch (\Exception $e) {
             throw $e;
         }

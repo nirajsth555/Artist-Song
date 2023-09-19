@@ -24,8 +24,8 @@ class CreateMusicRequest extends FormRequest
         return [
             'artist' => 'required',
             'title' => 'required|max:255',
-            'album_name' => 'required|max:255',
-            'genre' => 'required|in:rnb, country, classic, rock, jazz',
+            'albumName' => 'required|max:255',
+            'genre' => 'required|in:rnb,country,classic,rock,jazz',
         ];
     }
 }

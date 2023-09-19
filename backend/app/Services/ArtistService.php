@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
+use App\Models\Artist;
 use App\Repositories\ArtistRepository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -30,11 +31,11 @@ class ArtistService
         }
     }
 
-    public function updateArtist($artistId, $data)
+    public function updateArtist(Artist $artist, $data)
     {
         DB::beginTransaction();
         try {
-            $artist = $this->artistRepository->update($artistId, $data);
+            $artist = $this->artistRepository->update($artist, $data);
             DB::commit();
             return $artist;
         } catch (\Exception $e) {
@@ -44,11 +45,11 @@ class ArtistService
         }
     }
 
-    public function deleteArtist($artistId)
+    public function deleteArtist(Artist $artist)
     {
         DB::beginTransaction();
         try {
-            $artist = $this->artistRepository->delete($artistId);
+            $artist = $this->artistRepository->delete($artist);
             DB::commit();
             return $artist;
         } catch (\Exception $e) {

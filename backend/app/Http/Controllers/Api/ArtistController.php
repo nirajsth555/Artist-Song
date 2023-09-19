@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Artist\CreateArtistRequest;
+use App\Models\Artist;
 use App\Services\ArtistService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -43,17 +44,17 @@ class ArtistController extends Controller
         }
     }
 
-    public function update($artist, CreateArtistRequest $request)
+    public function update(CreateArtistRequest $request, Artist $artist)
     {
         try {
             $artist = $this->artistService->updateArtist($artist, $request);
-            return $this->generalisedResponse("Artist created successfully", true, ['artist' => $artist], Response::HTTP_OK);
+            return $this->generalisedResponse("Artist updated successfully", true, ['artist' => $artist], Response::HTTP_OK);
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    public function delete($artist)
+    public function delete(Artist $artist)
     {
         try {
             $this->artistService->deleteArtist($artist);
